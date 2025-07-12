@@ -51,17 +51,6 @@ employee-directory/
 
 ---
 
-## 🖼️ Screenshots
-
-### 📋 Dashboard Page
-![Dashboard Screenshot](screenshots/dashboard.png)
-
-### ➕ Add Employee Page
-![Form Screenshot](screenshots/add-form.png)
-
-> You can take screenshots from your browser and save them under a `/screenshots` folder to match this.
-
----
 
 ## ✅ Validations
 
