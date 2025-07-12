@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add/Edit Employee</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <h2>Add / Edit Employee</h2>
+  <form id="employee-form">
+    <input name="firstName" placeholder="First Name" required />
+    <input name="lastName" placeholder="Last Name" required />
+    <input name="email" placeholder="Email" type="email" required />
+    <input name="department" placeholder="Department" required />
+    <input name="role" placeholder="Role" required />
+    <button type="submit">Save</button>
+    <button type="button" onclick="window.location.href='index.html'">Cancel</button>
+  </form>
+
+  <script src="js/data.js"></script>
+  <script>
+    const form = document.getElementById("employee-form");
+    const editEmp = JSON.parse(localStorage.getItem("editEmp"));
+    let isEdit = false;
+
+    if (editEmp) {
+      form.firstName.value = editEmp.firstName;
+      form.lastName.value = editEmp.lastName;
+      form.email.value = editEmp.email;
+      form.department.value = editEmp.department;
+      form.role.value = editEmp.role;
+      isEdit = true;
+    }
+
+    form.onsubmit = (e) => {
+      e.preventDefault();
+      const newEmp = {
+        id: isEdit ? editEmp.id : Date.now(),
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        email: form.email.value,
+        department: form.department.value,
+        role: form.role.value,
+      };
+
+      let allEmployees = JSON.parse(localStorage.getItem("allEmployees")) || mockEmployees;
+      if (isEdit) {
+        allEmployees = allEmployees.map(emp => emp.id === editEmp.id ? newEmp : emp);
+      } else {
+        allEmployees.push(newEmp);
+      }
+
+      localStorage.setItem("allEmployees", JSON.stringify(allEmployees));
+      localStorage.removeItem("editEmp");
+      window.location.href = "index.html";
+    };
+  </script>
+</body>
+</html>
